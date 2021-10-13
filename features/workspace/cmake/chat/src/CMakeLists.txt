@@ -1,17 +1,16 @@
 cmake_minimum_required(VERSION 2.8.12)
-
 project(Chat)
 
-if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-else()
-    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+# company library can be in super build
+if(NOT TARGET hello::hello)
+  find_package(hello REQUIRED)
 endif()
 
-conan_basic_setup(NO_OUTPUT_DIRS)
+# assume that third part library never in super build
+find_package(ZLIB REQUIRED)
 
 add_library(chat chat.cpp)
-conan_target_link_libraries(chat)
+target_link_libraries(chat PUBLIC hello::hello)
 
 add_executable(app app.cpp)
-target_link_libraries(app chat)
+target_link_libraries(app chat ZLIB::ZLIB)

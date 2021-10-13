@@ -4,7 +4,6 @@ class Pkg(ConanFile):
     name = "say"
     version = "0.1"
     settings = "os", "compiler", "arch", "build_type"
-    generators = "cmake"
     exports_sources = "src/*"
 
     def build(self):

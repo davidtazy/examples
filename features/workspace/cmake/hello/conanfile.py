@@ -4,7 +4,7 @@ class Pkg(ConanFile):
     name = "hello"
     version = "0.1"
     settings = "os", "compiler", "arch", "build_type"
-    generators = "cmake"
+    generators = "cmake_paths", "cmake_find_package"
     exports_sources = "src/*"
     requires = "say/0.1@user/testing"
 
